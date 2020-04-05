@@ -24,6 +24,7 @@ module.exports = {
   ],
   rules: {
     semi: ['error', 'always', { omitLastInOneLineBlock: true }],
+    'prefer-const': 2,
     'no-unused-vars': 1,
     'spaced-comment': ['error', 'always'],
     'keyword-spacing': ['error', { after: true }],

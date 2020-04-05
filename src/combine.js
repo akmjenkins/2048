@@ -38,11 +38,11 @@ export const combineArr = (arr, reverse) => {
 // direction -1 for vertical, 1 for horizontal
 // which = 1 for down/right, -1 for up/left
 export default (board, direction, which) => {
-  let changed, nextBoard;
+  let changed;
 
   const fn = direction === -1 ? columns : identity;
 
-  nextBoard = fn(
+  const nextBoard = fn(
     fn(board).map(arr => {
       const next = combineArr(arr, which === -1, board.length);
       changed = changed || arr !== next;
