@@ -1,7 +1,7 @@
 ## 2048
 
-[![Coverage Status](https://coveralls.io/repos/github/zuze-lab/modifiable/badge.svg)](https://coveralls.io/github/akmjenkins/2048)
-[![Build Status](https://travis-ci.com/zuze-lab/modifiable.svg)](https://travis-ci.com/akmjenkins/2048)
+[![Coverage Status](https://coveralls.io/repos/github/akmjenkins/2048/badge.svg)](https://coveralls.io/github/akmjenkins/2048)
+[![Build Status](https://travis-ci.com/akmjenkins/2048.svg)](https://travis-ci.com/akmjenkins/2048)
 
 
 A functional implementation of the [2048](https://play2048.co/).
