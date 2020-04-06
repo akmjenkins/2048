@@ -20,10 +20,7 @@ Implementation is just 1kb minified and gzipped and consists of 2 pure functions
 
 ### createBoard
 ```js
-createBoard({
-    boardSize?: number = 4, 
-    startWith?: number = 2
-}): Board`
+createBoard(boardSize?: number = 4, startWith?: number = 2): Board`
 ```
 
 Creates a 2048 game board (square) of the optionally given size with the optionally
