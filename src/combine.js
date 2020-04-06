@@ -5,6 +5,7 @@ import { columns, identity } from './utils';
 export const combineArr = (arr, reverse) => {
   let changed;
   let hasFoundNonZero;
+  let points = 0;
   const operateOn = arr.slice();
 
   reverse && operateOn.reverse();
@@ -15,7 +16,7 @@ export const combineArr = (arr, reverse) => {
     if (nextNonZero !== idx && val === arr[nextNonZero]) {
       changed = true;
       arr[nextNonZero] = 0;
-      val *= 2;
+      points += val *= 2;
     }
 
     if (!changed) changed = hasFoundNonZero && !val;
@@ -23,7 +24,7 @@ export const combineArr = (arr, reverse) => {
     return acc;
   }, []);
 
-  if (!changed) return arr;
+  if (!changed) return { arr, points };
 
   // fill in the modified array with ending zeroes
   // remove all zeroes and add them at the beginning
@@ -31,24 +32,27 @@ export const combineArr = (arr, reverse) => {
     .fill(0)
     .concat(next.filter(v => !!v))
     .slice(-arr.length);
-  reverse && out.reverse();
-  return out;
+  return { arr: reverse ? out.reverse() : out, points };
 };
 
 // direction -1 for vertical, 1 for horizontal
 // which = 1 for down/right, -1 for up/left
 export default (board, direction, which) => {
-  let changed;
-
+  let changed,
+    points = 0;
   const fn = direction === -1 ? columns : identity;
 
-  const nextBoard = fn(
+  const next = fn(
     fn(board).map(arr => {
-      const next = combineArr(arr, which === -1, board.length);
-      changed = changed || arr !== next;
+      const { arr: next, points: pts } = combineArr(
+        arr,
+        which === -1,
+        board.length
+      );
+      if (arr !== next) (changed = true), (points += pts);
       return next;
     })
   );
 
-  return changed ? nextBoard : board;
+  return { board: changed ? next : board, points };
 };

@@ -14,14 +14,16 @@ const iterate = (cb, boardSize) => {
   throw new Error('not found');
 };
 
-const hasZero = board => board.some(row => row.includes(0));
+export const hasNumber = (num, board) => board.some(row => row.includes(num));
 
 // determine if zeroes exist or adjacent matching numbers exist either vertically or horizontally
 const hasAdjacent = arr =>
   arr.filter(v => !!v).some((val, idx) => val === arr[idx + 1]);
 
 export const hasMove = board =>
-  hasZero(board) || board.some(hasAdjacent) || columns(board).some(hasAdjacent);
+  hasNumber(0, board) ||
+  board.some(hasAdjacent) ||
+  columns(board).some(hasAdjacent);
 
 // rotates a square so that rows become columns
 export const columns = square =>
@@ -38,9 +40,11 @@ export const randomPosition = board => {
 };
 
 export const generate = (board, numbers = [2, 4]) => {
-  const [row, col] = randomPosition(board);
-  const next = [...board];
-  const r = [...next[row]];
+  const rc = randomPosition(board),
+    row = rc[0],
+    col = rc[1],
+    next = board.slice(),
+    r = board[row].slice();
   r[col] = randomNumber(numbers);
   next[row] = r;
   return next;

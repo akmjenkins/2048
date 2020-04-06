@@ -1,5 +1,5 @@
 import move from '../src/move';
-import { generate, identity } from '../src/utils';
+import { generate } from '../src/utils';
 jest.mock('../src/utils', () => ({
   __esModule: true,
   // mock the generate function in here so we can easily
@@ -17,39 +17,48 @@ const fixture = [
 
 describe('move', () => {
   it('should move up', () => {
-    expect(move(fixture, 'UP')).toEqual([
+    const { board, points } = move(fixture, 'UP');
+    expect(board).toEqual([
       [8, 4, 2, 4],
       [0, 0, 0, 4],
       [0, 0, 0, 0],
       [0, 0, 0, 0],
     ]);
+
+    expect(points).toBe(8 + 4 + 4);
   });
 
   it('should move down', () => {
-    expect(move(fixture, 'DOWN')).toEqual([
+    const { board, points } = move(fixture, 'DOWN');
+    expect(board).toEqual([
       [0, 0, 0, 0],
       [0, 0, 0, 0],
       [0, 0, 0, 4],
       [8, 4, 2, 4],
     ]);
+    expect(points).toBe(8 + 4 + 4);
   });
 
   it('should move left', () => {
-    expect(move(fixture, 'LEFT')).toEqual([
+    const { board, points } = move(fixture, 'LEFT');
+    expect(board).toEqual([
       [2, 0, 0, 0],
       [2, 0, 0, 0],
       [4, 2, 0, 0],
       [8, 4, 0, 0],
     ]);
+    expect(points).toBe(8 + 4);
   });
 
   it('should move right', () => {
-    expect(move(fixture, 'RIGHT')).toEqual([
+    const { board, points } = move(fixture, 'RIGHT');
+    expect(board).toEqual([
       [0, 0, 0, 2],
       [0, 0, 0, 2],
       [0, 0, 4, 2],
       [0, 0, 8, 4],
     ]);
+    expect(points).toBe(8 + 4);
   });
 
   it('should return the same board if no move was made', () => {
@@ -60,7 +69,9 @@ describe('move', () => {
       [0, 0, 0, 2],
     ];
 
-    expect(move(f, 'RIGHT')).toBe(f);
+    const { board, points } = move(f, 'RIGHT');
+    expect(board).toBe(f);
+    expect(points).toBe(0);
   });
 
   it('should throw a game over error', () => {
